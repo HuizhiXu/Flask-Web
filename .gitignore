@@ -1,0 +1,11 @@
+
+
+# 编译过程中会产生的文件
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+dist
+build
+
+!.gitignore
