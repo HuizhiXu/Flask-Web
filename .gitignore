@@ -9,4 +9,7 @@ dist
 build
 .idea/
 
+
+.env
 !.gitignore
+
