@@ -8,8 +8,9 @@
 dist
 build
 .idea/
+.config
 
-
-.env
+*.db
 !.gitignore
 
+__pycache__/
