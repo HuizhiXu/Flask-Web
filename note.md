@@ -21,7 +21,7 @@ Flask调用视图函数后，会将视图函数的返回值作为响应的内容
 6.
 7. 渲染数据是干啥？  
    应用程序会返回HTML页面。在使用中这个HTML页面里面的数据会根据传入的参数不同发生不同的变化。 当HTML代码保存到单独的文件中时，我们没法再使用字符串格式化或拼接字符串的方法在HTML代码中插入变量，
-   这时我们需要使用模板引擎（template engine）。 借助模板引擎，我们可以再HTML文件中使用特殊的语法来标记变量， 这类包含固定内容和动态部分的可重用文件称为模板（template）。
+   这时我们需要使用模板引擎（template engine）。 借助模板引擎，我们可以在HTML文件中使用特殊的语法来标记变量， 这类包含固定内容和动态部分的可重用文件称为模板（template）。
    模板引擎的作用就是读取并执行模板中的特殊语法标记，并根据传入的数据将变量替换为实际值，输出最终的HTML页面，这个过程被称为渲染（rendering）。
 
 Flask默认使用的模板引擎是jinja2，他是一个功能齐全的python模板引擎，输了设置变量，还允许我们在模板中添加if判断，执行for迭代，调整函数等，以各种方式 控制模板的输出。
@@ -33,6 +33,15 @@ Flask默认使用的模板引擎是jinja2，他是一个功能齐全的python模
 视图函数返回的HTML数据往往要根据参数动态生成。
 
 7. 局部上下文
+
+# 环境配置
+FLASK_ENV 设置程序运行的环境。  
+FLASK_APP
+
+在根目录下创建 .env和.flaskenv来设置环境变量。  
+
+.flaskenv 用来存储 Flask 命令行系统相关的公开环境变量；而 .env 则用来存储敏感数据
+'FLASK_ENV' is deprecated and will not be used in Flask 2.3. Use 'FLASK_DEBUG' instead.
 
 # Web服务器
 
@@ -60,6 +69,10 @@ if __name__ == '__main__':
 @app.route("/hello/)：同时支持http://127.0.0.1:5000/hello 和http://127.0.0.1:5000/hello/
 
 问题：FLASK_APP是什么？
+
+## 视图函数
+
+- 视图函数一定有个返回值。 它的返回值默认会被浏览器作为HTML格式解析。  
 
 # 前端知识
 
@@ -136,6 +149,11 @@ body中的元素和属性：
 </body>
 
 ```
+
+### 生成静态文件URL
+在HTML文件中引入静态文件需要给出资源所在的URL。可以通过url_for来生成。   
+`<img src="{{ url_for('static', filename='foo.jpg') }}">`  
+花括号部分的调用会返回 /static/foo.jpg。
 
 ## 把内容和样式结合起来
 
@@ -234,6 +252,9 @@ body {
 css文件中添加响应的位置长宽高以及颜色，最后就在js文件中添加事件处理程序。
 
 
+
+
+
 ## 使用开发人员工具查看页面
 
 1. 右键单击网页并选择“检查”以打开开发人员工具，或尝试以下快捷方式：
@@ -246,6 +267,9 @@ css文件中添加响应的位置长宽高以及颜色，最后就在js文件中
 
 开发人员工具中的“元素”选项卡将显示在浏览器中呈现的文档对象模型 (DOM)。 调试时，查看浏览器如何解释你的源代码通常十分重要。
 
+
+
+
 # 其他
 
 ## 字符编码
@@ -255,9 +279,15 @@ css文件中添加响应的位置长宽高以及颜色，最后就在js文件中
 各个字符编码含义： gb2312：代表国家标准第2312条，其中是不包含繁体的（虽然咱们不怎么使用繁体了，但是台湾还在使用繁体啊。那怎么办呢？）。 gbk：国家标准扩展版（增加了繁体，包含所有亚洲字符集）。
 unicode：万国码（字面意思你也懂的）。 utf-8：unicode的升级版。
 
+## 测试
+和网站上教程里面的测试不同，涉及到db的部分都需要加上`with app.app_context()`。
 # 参考
 
 1. https://flask-chs.readthedocs.io/zh_CN/master/quickstart.html
 2. 局部上下文 https://blog.csdn.net/barrysj/article/details/51519254
 3. 《使用 HTML、CSS 和 Javascript 构建简单的网站》 - Microsoft Learn https://learn.microsoft.com/zh-cn/training/modules/build-simple-website/3-html-basics
 4. 《Web 入门教程》 - MDN
+5. 李辉helloflask https://tutorial.helloflask.com/hello/
+6. 《互联网是如何工作的？》https://tutorial.djangogirls.org/zh/how_the_internet_works/
+7. 《从 HTTP 请求 - 响应循环探索 Flask 的基本工作方式》 https://zhuanlan.zhihu.com/p/42231394
+8. jinja 过滤器 https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters
