@@ -14,3 +14,7 @@ build
 !.gitignore
 
 __pycache__/
+
+htmlcov/
+.coverage
+*/__pycache__/
